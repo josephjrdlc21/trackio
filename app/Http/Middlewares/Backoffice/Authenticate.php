@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middlewares;
+namespace App\Http\Middlewares\Backoffice;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -38,7 +38,7 @@ class Authenticate {
         if (!Auth::guard('backoffice')->check()) {
             session()->flash('notification-status', "warning");
             session()->flash('notification-msg', "Unauthorized access.");
-            return redirect()->route('auth.login');
+            return redirect()->route('backoffice.auth.login');
         }
 
         return $next($request);

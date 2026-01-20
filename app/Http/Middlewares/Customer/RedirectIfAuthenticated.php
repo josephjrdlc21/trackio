@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middlewares;
+namespace App\Http\Middlewares\Customer;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -37,7 +37,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if(Auth::guard('web')->check()) {
-            return new RedirectResponse(route('index'));
+            return new RedirectResponse(route('customer.dashboard'));
         }
 
         return $next($request);

@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use App\Support\CustomValidator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,5 +45,20 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null
         );
+
+        /**
+         * Secure the assets when https.
+        */
+        if(env('SECURE_ASSET', FALSE) == TRUE){
+            $this->app['request']->server->set('HTTPS','on');
+        }
+
+        /**
+         * Custom validation configuration.
+        */
+        Validator::resolver(function($translator, $data, $rules, $messages)
+        {
+            return new CustomValidator($translator, $data, $rules, $messages);
+        });
     }
 }
