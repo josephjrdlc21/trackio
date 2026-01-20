@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Coins, LayoutDashboard, HandCoins, WalletCards } from "lucide-react"
+import { Coins, LayoutDashboard, HandCoins, Wallet, FileChartLine,
+	ChartColumnStacked, WalletCards } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenu,
   	SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton,
   	SidebarMenuSubItem,} from "@/components/ui/sidebar"
@@ -19,9 +20,19 @@ const data = {
 			],
 		},
 		{
-		title: "Money Management",
+		title: "Expense Management",
 		url: "#",
 			items: [
+				{
+					title: "Budgets",
+					url: "#",
+					icon: <Wallet className="size-4" />,
+				},
+				{
+					title: "Categories",
+					url: "#",
+					icon: <ChartColumnStacked className="size-4" />,
+				},
 				{
 					title: "Expenses",
 					url: "#",
@@ -31,6 +42,11 @@ const data = {
 					title: "Income",
 					url: "#",
 					icon: <WalletCards className="size-4" />,
+				},
+				{
+					title: "Analytics",
+					url: "#",
+					icon: <FileChartLine className="size-4" />,
 				},
 			],
 		},
