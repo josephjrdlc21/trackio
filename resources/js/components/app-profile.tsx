@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react"
 import { initialsFormat, titleCase } from "@/lib/utils"
+import { logout } from "@/routes/customer/auth"
 
 import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuGroup, 
@@ -7,24 +8,26 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuGroup
 import { Lock, LogOut, User2Icon } from "lucide-react"
 
 export default function AppProfile() {
+    const { auth } = usePage().props
+    const user = auth?.customer ?? auth?.admin
 
     return(
-        <div className="flex justify-between items-center gap-2 mr-5">
+        <div className="flex justify-between items-center gap-2">
             <div className="text-right inline-block">
-                <div className="mr-1 font-medium text-sm">Juan Dela Cruz</div>
+                <div className="mr-1 font-medium text-sm">{user?.name}</div>
             </div>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="cursor-pointer">
                         <AvatarImage src="#" alt="profile" />
-                        <AvatarFallback>{initialsFormat("Juan Dela Cruz")}</AvatarFallback>
+                        <AvatarFallback>{initialsFormat(user?.name)}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>
-                        <span className="font-bold text-sm">Juan Dela Cruz</span><br/>
+                        <span className="font-bold text-sm">{user?.name}</span><br/>
                         <small className="text-gray-600 text-xs block leading-snug">
-                            {titleCase("juandelacruz@gmail.com")}
+                            {titleCase(user?.email)}
                         </small>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
@@ -39,7 +42,7 @@ export default function AppProfile() {
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                         <DropdownMenuItem asChild className="cursor-pointer">
-                            <a href="#"><LogOut/> Logout</a>
+                            <a href={logout.url()}><LogOut/> Logout</a>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                 </DropdownMenuContent>

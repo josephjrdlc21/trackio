@@ -2,6 +2,7 @@
 
 namespace App\Http\Middlewares;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -38,8 +39,20 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+
             'auth' => [
-                'user' => $request->user(),
+                'customer' => Auth::guard('web')->check()
+                    ? Auth::guard('web')->user()
+                    : null,
+
+                // 'admin' => Auth::guard('backoffice')->check()
+                //     ? Auth::guard('backoffice')->user()
+                //     : null,
+            ],
+
+            'flash' => [
+                'status' => session()->get('notification-status'),
+                'message' => session()->get('notification-msg'),
             ],
         ];
     }

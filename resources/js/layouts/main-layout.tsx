@@ -6,6 +6,7 @@ import AppSearch from "@/components/app-search"
 import AppProfile from "@/components/app-profile"
 import AppBell from "@/components/app-bell"
 import AppFooter from "@/components/app-footer"
+import AppNotification from "@/components/app-notification"
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
     return(
@@ -37,6 +38,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                 <div className="flex flex-1 flex-col gap-4 p-4">
                     <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min">
                         {children}
+                        <AppNotification />
                     </div>  
                     <AppFooter />
                 </div>

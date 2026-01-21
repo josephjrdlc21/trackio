@@ -11,7 +11,7 @@ export function ModeToggle() {
     return (
         <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" aria-label="Toggle theme" className="shadow-none w-10 h-10 lg:h-11 lg:w-11 p-5 rounded-full">
+                <Button variant="outline" size="icon" aria-label="Toggle theme" className="h-10 w-10 rounded-full p-5 shadow-none lg:h-11 lg:w-11">
                     {appearance === 'dark' ? (
                         <Moon className="h-[1.2rem] w-[1.2rem]" />
                     ) : appearance === 'light' ? (
