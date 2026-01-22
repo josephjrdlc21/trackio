@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
-use App\Support\CustomValidator;
+use App\Services\CustomValidator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;

@@ -4,6 +4,8 @@ import { Coins, LayoutDashboard, HandCoins, Wallet, FileChartLine,
 import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenu,
   	SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton,
   	SidebarMenuSubItem,} from "@/components/ui/sidebar"
+import { dashboard } from "@/routes/customer"
+import { index as category } from "@/routes/customer/category"
 
 const data = {
 	navMain: [
@@ -13,8 +15,8 @@ const data = {
 			items: [
 				{
 					title: "Dashboard",
-					url: "#",
-					isActive: "",
+					url: dashboard.url(),
+					isActive: location.pathname === dashboard.url(),
 					icon: <LayoutDashboard className="size-4" />,
 				},
 			],
@@ -26,26 +28,31 @@ const data = {
 				{
 					title: "Budgets",
 					url: "#",
+					isActive: false,
 					icon: <Wallet className="size-4" />,
 				},
 				{
 					title: "Categories",
-					url: "#",
+					url: category.url(),
+					isActive: location.pathname === category.url(),
 					icon: <ChartColumnStacked className="size-4" />,
 				},
 				{
 					title: "Expenses",
 					url: "#",
+					isActive: false,
 					icon: <HandCoins className="size-4" />,
 				},
 				{
 					title: "Income",
 					url: "#",
+					isActive: false,
 					icon: <WalletCards className="size-4" />,
 				},
 				{
 					title: "Analytics",
 					url: "#",
+					isActive: false,
 					icon: <FileChartLine className="size-4" />,
 				},
 			],
@@ -86,7 +93,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 									<SidebarMenuSub className="ml-0 border-l-0 px-1.5 mx-0">
 										{item.items.map((item) => (
 											<SidebarMenuSubItem key={item.title}>
-												<SidebarMenuSubButton className="py-5" asChild>
+												<SidebarMenuSubButton className="py-5" asChild isActive={item.isActive}>
 													<a href={item.url} className="flex items-center gap-4">
 														{item.icon}
 														<span>{item.title}</span>

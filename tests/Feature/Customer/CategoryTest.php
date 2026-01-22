@@ -1,10 +1,10 @@
 <?php
 
-use Inertia\Testing\AssertableInertia as Assert;
-
 use App\Models\User;
 
-test('get dashboard page', function () {
+use Inertia\Testing\AssertableInertia as Assert;
+
+test('get category page', function () {
 
     $user = new User;
     $user->name = 'John Doe';
@@ -17,9 +17,9 @@ test('get dashboard page', function () {
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
-        ->get(route('customer.dashboard'))
+        ->get(route('customer.category.index'))
         ->assertOk()
         ->assertInertia(function (Assert $page) {
-            $page->component('customer/dashboard');
+            $page->component('customer/category/index');
         });
 });

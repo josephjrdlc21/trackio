@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Customer;
 
 use App\Interfaces\Customer\AuthRepositoryInterface;
 use App\Http\Requests\PageRequest;
+use App\Http\Requests\Customer\Auth\LoginAuthRequest;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
 class AuthController extends Controller{
-
     protected AuthRepositoryInterface $auth_repo;
     protected array $data = [];
     protected ?int $per_page;
@@ -24,10 +24,9 @@ class AuthController extends Controller{
         return $this->auth_repo->login();
     }
 
-    public function authenticate(PageRequest $request): RedirectResponse {
-        $data = $request->all();
+    public function authenticate(LoginAuthRequest $request): RedirectResponse {
 
-        return $this->auth_repo->authenticate($data);
+        return $this->auth_repo->authenticate($request->validated());
     }
 
     public function logout(PageRequest $request): RedirectResponse {
