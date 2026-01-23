@@ -6,14 +6,7 @@ use App\Models\User;
 
 test('get dashboard page', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')

@@ -10,15 +10,15 @@ import { Button } from "@/components/ui/button"
 export default function CategoryList() {
     return (
         <Card className="p-0 gap-0 mt-4 shadow-none">
-            <div className="flex flex-col lg:flex-row justify-between lg:items-center p-4">
-                <h4 className="font-semibold text-base">Category List</h4>
+            <div className="flex flex-col lg:flex-row justify-between lg:items-center p-4 gap-2">
+                <h4 className="font-semibold text-base">Record Data</h4>
                 <CategoryFilter />
             </div>
 
             <div className="overflow-x-auto">
                 <Table>
                     <TableHeader>
-                        <TableRow className="hover:bg-transparent">
+                        <TableRow className="hover:bg-transparent border-t">
                             <TableHead className="min-w-[200px] pl-4"><b>Name</b></TableHead>
                             <TableHead className="min-w-[200px] text-center"><b>Status</b></TableHead>
                             <TableHead className="min-w-[150px]"><b>Type</b></TableHead>

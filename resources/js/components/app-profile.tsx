@@ -23,25 +23,25 @@ export default function AppProfile() {
                         <AvatarFallback>{initialsFormat(user?.name)}</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>
-                        <span className="font-bold text-sm">{user?.name}</span><br/>
+                <DropdownMenuContent align="end" className="md:w-[200px]">
+                    <DropdownMenuLabel className="md:px-4">
+                        <span className="font-bold text-sm">{titleCase(user?.name)}</span><br/>
                         <small className="text-gray-600 text-xs block leading-snug">
-                            {titleCase(user?.email)}
+                            {user?.email}
                         </small>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem asChild className="cursor-pointer">
-                           <a href="#"><User2Icon/> Profile </a>
+                        <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
+                           <a href="#"><User2Icon/> Profile Details</a>
                         </DropdownMenuItem>
-                        <DropdownMenuItem asChild className="cursor-pointer">
+                        <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
                             <a href="#"><Lock/> Change Password</a>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                        <DropdownMenuItem asChild className="cursor-pointer">
+                        <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
                             <a href={logout.url()}><LogOut/> Logout</a>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>

@@ -7,13 +7,13 @@ import { FilterIcon } from "lucide-react"
 
 export default function DashboardHeading() {
     return (
-        <div className="pb-3 w-full flex justify-between items-center gap-2">
-            <div className="flex justify-between items-center gap-2">
-                <h4 className="font-semibold">Dashboard</h4>
+        <div className="pb-3 w-full flex flex-col md:flex-row justify-between md:items-center gap-2">
+            <div className="flex md:flex-row justify-between md:items-center gap-2">
+                <h4 className="font-semibold hidden md:block">Dashboard</h4>
 
                 <Separator
                     orientation="vertical"
-                    className="data-[orientation=vertical]:h-5"
+                    className="hidden md:block data-[orientation=vertical]:h-5"
                 />
 
                 <Breadcrumb>
@@ -30,7 +30,7 @@ export default function DashboardHeading() {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex md:justify-between items-center gap-2">
                 <Button variant="outline" className="shadow-none">
                     JAN 20, 26 - JAN 20, 26
                 </Button>

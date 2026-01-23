@@ -16,14 +16,7 @@ test('login page', function () {
 
 test('authenticate user credentials', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->post(route('customer.auth.authenticate'), [
@@ -36,14 +29,8 @@ test('authenticate user credentials', function () {
 });
 
 test('logout user', function () {
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')

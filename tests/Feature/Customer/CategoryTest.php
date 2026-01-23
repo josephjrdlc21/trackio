@@ -7,14 +7,7 @@ use Inertia\Testing\AssertableInertia as Assert;
 
 test('category list page', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
@@ -27,14 +20,7 @@ test('category list page', function () {
 
 test('create new category page', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
@@ -47,14 +33,7 @@ test('create new category page', function () {
 
 test('store new category', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
+    $user = User::factory()->customer()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
@@ -68,21 +47,10 @@ test('store new category', function () {
 
 test('edit category page', function () {
 
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
-
-    $category = new Category;
-    $category->user_id = $user->id;
-    $category->name = 'Food';
-    $category->type = 'Expense';
-    $category->status = 'active';
-    $category->save();
+    $user = User::factory()->customer()->create();
+    $category = Category::factory()->category()->create([
+        'user_id' => $user->id,
+    ]);
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
@@ -94,21 +62,11 @@ test('edit category page', function () {
 });
 
 test('update category details', function () {
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
 
-    $category = new Category;
-    $category->user_id = $user->id;
-    $category->name = 'Food';
-    $category->type = 'Expense';
-    $category->status = 'active';
-    $category->save();
+    $user = User::factory()->customer()->create();
+    $category = Category::factory()->category()->create([
+        'user_id' => $user->id,
+    ]);
 
     $this->withMiddleware()
         ->actingAs($user, 'web')
@@ -121,21 +79,11 @@ test('update category details', function () {
 });
 
 test('delete category', function () {
-    $user = new User;
-    $user->name = 'John Doe';
-    $user->email = 'johndoe@gmail.com';
-    $user->password = bcrypt('Aa@12345');
-    $user->email_verified_at = now();
-    $user->status = 'active';
-    $user->role = 'customer';
-    $user->save();
 
-    $category = new Category;
-    $category->user_id = $user->id;
-    $category->name = 'Food';
-    $category->type = 'Expense';
-    $category->status = 'active';
-    $category->save();
+    $user = User::factory()->customer()->create();
+    $category = Category::factory()->category()->create([
+        'user_id' => $user->id,
+    ]);
 
     $this->withMiddleware()
         ->actingAs($user, 'web')

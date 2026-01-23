@@ -4,8 +4,8 @@ import { Funnel, RotateCcw, Search } from "lucide-react"
 
 export default function CategoryFilter() {
     return (
-        <div className="flex justify-between items-center gap-2">
-            <div className="hidden lg:block">
+        <div className="flex flex-col md:flex-row md:items-center gap-2">
+            <div className="block">
                 <form>
                     <div className="relative">
                         <Search
@@ -20,12 +20,14 @@ export default function CategoryFilter() {
                     </div>
                 </form>
             </div>
-            <Button variant="outline" className="shadow-none h-10">
-                <Funnel />
-            </Button>
-            <Button variant="outline" className="shadow-none h-10">
-                <RotateCcw />
-            </Button>
+            <div className="flex gap-2">
+                <Button variant="outline" className="shadow-none h-10">
+                    <Funnel />
+                </Button>
+                <Button variant="outline" className="shadow-none h-10">
+                    <RotateCcw />
+                </Button>
+            </div>
         </div>
     )
 }

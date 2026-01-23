@@ -6,13 +6,13 @@ import { PlusIcon } from "lucide-react"
 
 export default function CategoryHeading() {
     return (
-        <div className="pb-3 w-full flex justify-between items-center gap-2">
-            <div className="flex justify-between items-center gap-2">
-                <h4 className="font-semibold">Categories</h4>
+        <div className="pb-3 w-full flex flex-col md:flex-row justify-between md:items-center gap-2">
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-2">
+                <h4 className="font-semibold hidden md:block">Categories</h4>
 
                 <Separator
                     orientation="vertical"
-                    className="data-[orientation=vertical]:h-5"
+                    className="hidden md:block data-[orientation=vertical]:h-5"
                 />
 
                 <Breadcrumb>
@@ -29,7 +29,7 @@ export default function CategoryHeading() {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex md:justify-between items-center gap-2">
                 <Button className="shadow-none" asChild>
                     <a href="#">
                         <PlusIcon className="size-4"/> Create Category

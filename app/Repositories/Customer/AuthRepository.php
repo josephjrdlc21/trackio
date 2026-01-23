@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+
 use Inertia\Inertia;
 use Inertia\Response;
 

@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
     DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, Trash, Pencil } from "lucide-react"
 
 export default function CategoryAction() {
     return (
@@ -14,17 +14,19 @@ export default function CategoryAction() {
                     <MoreHorizontal />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem  asChild>
-                    <a href="#">Edit</a>
+            <DropdownMenuContent align="end" className="md:w-[140px]">
+                <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
+                    <a href="#">
+                        <Pencil /> Edit
+                    </a>
                 </DropdownMenuItem>  
 
                 <DropdownMenuSeparator />              
 
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button variant="ghost" className="w-full justify-start px-2 text-red-500">Delete</Button>
+                            <Button variant="ghost" className="w-full justify-start px-2 text-red-500"><Trash /> Delete</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>
