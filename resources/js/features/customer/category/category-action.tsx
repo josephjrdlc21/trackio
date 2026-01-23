@@ -9,7 +9,7 @@ export default function CategoryAction() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer" asChild>
-                <Button variant="outline" size="sm" className="shadow-none">
+                <Button variant="outline" size="sm" className="h-8 w-8 p-0 shadow-none">
                     <span className="sr-only">Open menu</span>
                     <MoreHorizontal />
                 </Button>

@@ -4,7 +4,7 @@ use App\Models\User;
 
 use Inertia\Testing\AssertableInertia as Assert;
 
-test('get login page', function () {
+test('login page', function () {
 
     $this->withMiddleware()
         ->get(route('customer.auth.login'))
@@ -14,7 +14,7 @@ test('get login page', function () {
         });
 });
 
-test('authenticate customer credentials', function () {
+test('authenticate user credentials', function () {
 
     $user = new User;
     $user->name = 'John Doe';
@@ -35,7 +35,7 @@ test('authenticate customer credentials', function () {
     $this->assertAuthenticatedAs($user, 'web');
 });
 
-test('logout customer', function () {
+test('logout user', function () {
     $user = new User;
     $user->name = 'John Doe';
     $user->email = 'johndoe@gmail.com';
