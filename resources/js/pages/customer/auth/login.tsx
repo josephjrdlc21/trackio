@@ -4,7 +4,7 @@ import LoginBackground from "@/assets/svgs/login-background.svg"
 import { ThemeProvider } from "@/components/app-theme-provider" 
 import AppNotification from "@/components/app-notification"
 
-export default function LoginPage() {
+export default function Login() {
     return (
         <ThemeProvider>
             <AppNotification />
