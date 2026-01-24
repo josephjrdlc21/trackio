@@ -40,16 +40,11 @@ export function statusBadgeClass(status?: string | null): string {
     if (!status) return "";
 
     switch (status.toLowerCase()){
-        case "pending":
+        case "active":
             return "default";
 
-        case "active":
-        case "approved":
-            return "success";
-
         case "inactive":
-        case "cancelled":
-            return "danger";
+            return "destructive";
         
         default:
             return "default";
@@ -58,4 +53,20 @@ export function statusBadgeClass(status?: string | null): string {
 
 export function formatId(id: number, length: number = 5): string {
     return String(id).padStart(length, "0");
+}
+
+export function dateTime(input: string): string {
+    if (!input) return "";
+
+    const date = new Date(input);
+
+    return new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Singapore",
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    }).format(date);
 }
