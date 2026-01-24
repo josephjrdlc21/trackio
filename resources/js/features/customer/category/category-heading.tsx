@@ -1,3 +1,5 @@
+import { create } from "@/routes/customer/category"
+
 import { Separator } from "@/components/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, 
     BreadcrumbPage, BreadcrumbSeparator, } from "@/components/ui/breadcrumb"
@@ -31,7 +33,7 @@ export default function CategoryHeading() {
             </div>
             <div className="flex md:justify-between items-center gap-2">
                 <Button className="shadow-none" asChild>
-                    <a href="#">
+                    <a href={create.url()}>
                         <PlusIcon className="size-4"/> Create Category
                     </a>
                 </Button>

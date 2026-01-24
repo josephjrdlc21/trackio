@@ -10,14 +10,14 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 
-export default function CategoryList({ list }: CategoryListProps) {
+export default function CategoryList({ list, filters }: CategoryListProps) {
     const categories = Array.isArray(list.data) ? list.data : list.data ? [list.data] : []
 
     return (
         <Card className="p-0 gap-0 mt-4 shadow-none">
             <div className="flex flex-col lg:flex-row justify-between lg:items-center p-4 gap-2">
                 <h4 className="font-semibold text-base">Record Data</h4>
-                <CategoryFilter />
+                <CategoryFilter filters={filters} />
             </div>
 
             <div className="overflow-x-auto">
@@ -49,7 +49,7 @@ export default function CategoryList({ list }: CategoryListProps) {
                                     <TableCell>{dateTime(category.created_at)}</TableCell>
                                     <TableCell className="pr-4 text-center">
                                         <Button variant="outline" size="sm" className="my-5" asChild>
-                                            <CategoryAction />
+                                            <CategoryAction id={category.id} />
                                         </Button>
                                     </TableCell>
                                 </TableRow>

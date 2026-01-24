@@ -1,3 +1,6 @@
+import { edit, deleteMethod } from "@/routes/customer/category"
+import { router } from "@inertiajs/react"
+
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, 
     DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -5,7 +8,12 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "@/components/ui/alert-dialog"
 import { MoreHorizontal, Trash, Pencil } from "lucide-react"
 
-export default function CategoryAction() {
+export default function CategoryAction({ id }: { id: number }) {
+
+     const handleDelete = (id: number) => {
+        router.get(deleteMethod.url(id))
+    }
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer" asChild>
@@ -16,7 +24,7 @@ export default function CategoryAction() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="md:w-[140px]">
                 <DropdownMenuItem asChild className="md:px-4 md:py-2 cursor-pointer">
-                    <a href="#">
+                    <a href={edit.url({ id })}>
                         <Pencil /> Edit
                     </a>
                 </DropdownMenuItem>  
@@ -37,7 +45,7 @@ export default function CategoryAction() {
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction>Delete</AlertDialogAction>
+                                <AlertDialogAction onClick={() => handleDelete(id)}>Delete</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>

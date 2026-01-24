@@ -27,7 +27,8 @@ class CategoryRepository implements CategoryRepositoryInterface{
                 ->orWhereRaw("LOWER(type) LIKE '%{$keyword}%'");
         })
         ->latest()
-        ->paginate($per_page);
+        ->paginate($per_page)
+        ->withQueryString();
        
         return Inertia::render('customer/category/index', $data);
     }

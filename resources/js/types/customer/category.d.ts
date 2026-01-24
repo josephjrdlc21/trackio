@@ -9,6 +9,10 @@ export interface Category {
     deleted_at: string | null;
 }
 
+export interface Filter {
+    keyword: string | null;
+}
+
 export interface Link {
     url: string | null;
     label: string | null;
@@ -34,8 +38,18 @@ export interface Pagination {
 
 export interface CategoryDataProps {
     records: Pagination;
+    filters?: Filter;
 }
 
 export interface CategoryListProps {
     list: Pagination;
+    filters?: Filter;
+}
+
+export interface CategoryEditProps {
+    category: Category;
+}
+
+export interface CategoryFilterProps {
+    filters?: Filter;
 }

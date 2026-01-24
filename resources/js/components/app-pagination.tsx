@@ -1,112 +1,73 @@
 import { PaginationProps } from "@/types/pagination";
 
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem,
+    PaginationLink, PaginationNext, PaginationPrevious, } from "@/components/ui/pagination"
+
 export default function AppPagination({ links }: PaginationProps) {
+    if (!links || links.length === 0) return null;
+
+    const prevLink = links[0];
+    const nextLink = links[links.length - 1];
+    const numberLinks = links.slice(1, -1);
+
     return (
-        <nav aria-label="navigation pagination" className="flex justify-center p-4 my-1">
-            <ul className="flex -space-x-px text-sm">
-                {links.map((link, index) => {
-                    const isDisabled = link.url === null;
-                    const isActive = link.active;
-
-                    const baseClasses =
-                        "flex items-center justify-center box-border border border-default-medium text-sm w-8 h-8 focus:outline-none";
-
-                    const activeClasses =
-                        "text-fg-brand bg-neutral-tertiary-medium font-medium";
-
-                    const inactiveClasses =
-                        "text-body bg-neutral-secondary-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium";
-
-                    const disabledClasses =
-                        "opacity-50 cursor-not-allowed";
-
-                    const roundedClasses =
-                        index === 0
-                            ? "rounded-s-lg"
-                            : index === links.length - 1
-                            ? "rounded-e-lg"
-                            : "";
-
-                    return (
-                        <li key={link.page ?? index}>
-                            {isDisabled ? (
-                                <span
-                                    className={`${baseClasses} ${inactiveClasses} ${disabledClasses} ${roundedClasses}`}
-                                >
-                                    {renderLabel(link.label)}
-                                </span>
+        <Pagination className="py-3 w-full">
+            <PaginationContent className="relative flex w-full items-center">
+                
+                {/* LEFT: Previous */}
+                <div className="absolute left-0">
+                    <PaginationItem>
+                        {prevLink.url ? (
+                            <PaginationPrevious size="sm" href={prevLink.url} className="hover:bg-transparent"/>
                             ) : (
-                                <a
-                                    href={link.url ?? undefined}
-                                    aria-current={isActive ? "page" : undefined}
-                                    className={`${baseClasses} ${
-                                        isActive ? activeClasses : inactiveClasses
-                                    } ${roundedClasses}`}
-                                >
-                                    {renderLabel(link.label)}
-                                </a>
+                            <PaginationPrevious size="sm" className="opacity-50 pointer-events-none hover:bg-transparent" />
                             )}
-                        </li>
-                    );
-                })}
-            </ul>
-        </nav>
+                    </PaginationItem>
+                </div>
+
+                {/* CENTER: Page numbers */}
+                <div className="mx-auto flex items-center gap-1">
+                    {numberLinks.map((link, index) => {
+                        const label =
+                        link.label
+                            ?.replace("&laquo;", "«")
+                            .replace("&raquo;", "»")
+                            .trim() ?? "";
+
+                        if (!link.url) {
+                            return (
+                                <PaginationItem key={index}>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
+                            );
+                        }
+
+                        return (
+                            <PaginationItem key={link.page ?? index}>
+                                <PaginationLink
+                                size="sm"
+                                href={link.url}
+                                isActive={link.active}
+                                dangerouslySetInnerHTML={{ __html: label }}
+                                />
+                            </PaginationItem>
+                        );
+                    })}
+                </div>
+
+                {/* RIGHT: Next */}
+                <div className="absolute right-0">
+                    <PaginationItem>
+                        {nextLink.url ? (
+                        <PaginationNext size="sm" href={nextLink.url} className="hover:bg-transparent" />
+                        ) : (
+                        <PaginationNext size="sm" className="opacity-50 pointer-events-none hover:bg-transparent" />
+                        )}
+                    </PaginationItem>
+                </div>
+
+            </PaginationContent>
+    
+        </Pagination>
     );
-}
-
-/**
- * Renders pagination label:
- * - Previous / Next icons
- * - Page numbers
- */
-function renderLabel(label: string | null) {
-    if (!label) return null;
-
-    if (label.includes("Previous")) {
-        return (
-            <>
-                <span className="sr-only">Previous</span>
-                <svg
-                    className="w-4 h-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m15 19-7-7 7-7"
-                    />
-                </svg>
-            </>
-        );
-    }
-
-    if (label.includes("Next")) {
-        return (
-            <>
-                <span className="sr-only">Next</span>
-                <svg
-                    className="w-4 h-4"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m9 5 7 7-7 7"
-                    />
-                </svg>
-            </>
-        );
-    }
-
-    return <span dangerouslySetInnerHTML={{ __html: label }} />;
 }

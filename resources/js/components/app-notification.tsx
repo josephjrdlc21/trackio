@@ -27,6 +27,6 @@ export default function AppNotification() {
     }, [flash])
 
     return (
-        <Toaster position="bottom-right"/>
+        <Toaster position="top-right"/>
     )
 }

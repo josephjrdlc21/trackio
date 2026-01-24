@@ -1,8 +1,9 @@
+import { CategoryFilterProps } from "@/types/customer/category"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Funnel, RotateCcw, Search } from "lucide-react"
 
-export default function CategoryFilter() {
+export default function CategoryFilter({ filters }: CategoryFilterProps) {
     return (
         <div className="flex flex-col md:flex-row md:items-center gap-2">
             <div className="block">

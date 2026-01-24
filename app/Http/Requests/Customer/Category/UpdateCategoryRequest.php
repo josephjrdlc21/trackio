@@ -25,7 +25,7 @@ class UpdateCategoryRequest extends RequestManager
 
         $rules = [
             'name' => "required|string|max:255",
-            'type' => "required|in:Income,Expense",
+            'type' => "required|in:income,expense",
             'status' => "required|in:active,inactive",
         ];
 
