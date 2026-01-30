@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Expense>
  */
-class CategoryFactory extends Factory
+class ExpenseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,12 +21,12 @@ class CategoryFactory extends Factory
         ];
     }
 
-    public function category()
+    public function expense()
     {
         return $this->state(fn (array $attributes) => [
-            'name' => Arr::random(['Food', 'Groceries', 'Transport', 'Rent', 'Entertainment', 'Utilities', 'Salary']),
-            'type' => Arr::random(['expense', 'income']),
-            'status' => Arr::random(['active', 'inactive']),
+            'amount' => fake()->randomFloat(2, 10, 1000),
+            'expense_date' => now(),
+            'note' => fake()->sentence(),
         ]);
     }
 }

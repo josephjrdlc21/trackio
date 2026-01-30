@@ -38,8 +38,9 @@ test('store new category', function () {
     $this->withMiddleware()
         ->actingAs($user, 'web')
         ->post(route('customer.category.store'), [
+            'user_id' => $user->id,
             'name' => 'Food',
-            'type' => 'Expense',
+            'type' => 'expense',
             'status' => 'active',
         ])
         ->assertRedirect(route('customer.category.index'));
@@ -72,7 +73,7 @@ test('update category details', function () {
         ->actingAs($user, 'web')
         ->post(route('customer.category.update', $category->id), [
             'name' => 'Groceries',
-            'type' => 'Expense',
+            'type' => 'expense',
             'status' => 'active',
         ])
         ->assertRedirect(route('customer.category.index'));

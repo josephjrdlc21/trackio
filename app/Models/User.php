@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -67,5 +68,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(User::class, 'user_id', 'id');
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class, 'user_id', 'id');
     }
 }

@@ -16,7 +16,7 @@ test('login page', function () {
 
 test('authenticate user credentials', function () {
 
-    $user = User::factory()->customer()->create();
+    $user = User::factory()->auth()->create();
 
     $this->withMiddleware()
         ->post(route('customer.auth.authenticate'), [
@@ -30,7 +30,7 @@ test('authenticate user credentials', function () {
 
 test('logout user', function () {
     
-    $user = User::factory()->customer()->create();
+    $user = User::factory()->auth()->create();
 
     $this->withMiddleware()
         ->actingAs($user, 'web')

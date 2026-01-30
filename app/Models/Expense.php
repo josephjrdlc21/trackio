@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model{
+class Expense extends Model{
     
     use HasFactory, SoftDeletes;
 
@@ -16,7 +16,7 @@ class Category extends Model{
      *
      * @var string
      */
-    protected $table = "categories";
+    protected $table = "expenses";
     /**
      * The attributes that are mass assignable.
      *
@@ -42,10 +42,17 @@ class Category extends Model{
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        
+    ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

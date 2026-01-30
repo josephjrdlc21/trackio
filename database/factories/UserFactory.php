@@ -45,6 +45,18 @@ class UserFactory extends Factory
     public function customer()
     {
         return $this->state(fn (array $attributes) => [
+            'name' =>  fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => bcrypt('Aa@12345'),
+            'email_verified_at' => now(),
+            'status' => 'active',
+            'role' => 'customer',
+        ]);
+    }
+
+    public function auth()
+    {
+        return $this->state(fn (array $attributes) => [
             'name' => 'John Doe',
             'email' => 'johndoe@gmail.com',
             'password' => bcrypt('Aa@12345'),
