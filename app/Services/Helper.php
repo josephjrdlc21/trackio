@@ -26,4 +26,22 @@ class Helper{
 
         return $contact_number;
     }
+
+    public static function money_format($amount)
+    {
+        $amount = str_replace(',', '', $amount);
+
+        if ($amount) {
+            return number_format($amount, 2, '.', ',');
+        }
+
+        return number_format(0, 2, '.', ',');;
+    }
+
+    public static function db_amount($number, $sepator = '')
+    {
+        $amount = str_replace(',', '', $number);
+
+        return number_format($amount, 2, '.', $sepator);
+    }
 }

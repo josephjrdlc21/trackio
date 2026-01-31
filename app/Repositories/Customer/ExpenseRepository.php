@@ -2,19 +2,19 @@
 
 namespace App\Repositories\Customer;
 
-use App\Interfaces\Customer\CategoryRepositoryInterface;
+use App\Interfaces\Customer\ExpenseRepositoryInterface;
 
-use App\Models\Category;
+use App\Models\Expense;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-
+use App\Services\FileUploader;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class CategoryRepository implements CategoryRepositoryInterface{
-
+class ExpenseRepository implements ExpenseRepositoryInterface{
+    
     public function index(array $data): Response {
         $user = Auth::guard('web')->user();
 
@@ -22,21 +22,20 @@ class CategoryRepository implements CategoryRepositoryInterface{
         $keyword = $filters['keyword'] ?? null;
         $per_page = $data['per_page'] ?? 10;
 
-        $data['records'] = Category::when($keyword, function ($query) use ($keyword) {
-            $query->whereRaw("LOWER(name) LIKE '%{$keyword}%'")
-                ->orWhereRaw("LOWER(type) LIKE '%{$keyword}%'");
+        $data['records'] = Expense::when($keyword, function ($query) use ($keyword) {
+            $query->whereRaw("LOWER(note) LIKE '%{$keyword}%'");
         })
         ->where('user_id', $user->id)
         ->latest()
         ->paginate($per_page)
         ->withQueryString();
        
-        return Inertia::render('customer/category/index', $data);
+        return Inertia::render('customer/expense/index', $data);
     }
 
     public function create(): Response {
 
-        return Inertia::render('customer/category/create');
+        return Inertia::render('customer/expense/create');
     }
 
     public function store(array $data): RedirectResponse {
@@ -44,17 +43,27 @@ class CategoryRepository implements CategoryRepositoryInterface{
         try {
             $user = Auth::guard('web')->user();
 
-            $category = new Category();
-            $category->user_id = $user->id;
-            $category->name = $data['name'];
-            $category->type = $data['type'];
-            $category->status = $data['status'];
-            $category->save();
+            $expense = new Expense();
+            $expense->user_id = $user->id;
+            $expense->category_id = $data['category'];
+            $expense->amount = $data['amount'];
+            $expense->expense_date = $data['expense_date'];
+            $expense->note = $data['note'];
+            $expense->save();
+
+            if(!empty($data['receipt'])) {
+                $image = FileUploader::upload($data['image'], "uploads/expense/{$expense->id}");
+                $expense->path = $image['path'];
+                $expense->directory = $image['directory'];
+                $expense->filename = $image['filename'];
+                $expense->source = $image['source'];
+                $expense->save();
+            }
 
             DB::commit();
 
             session()->flash('notification-status', "success");
-            session()->flash('notification-msg', "Category created successfully.");
+            session()->flash('notification-msg', "Expense created successfully.");
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -63,25 +72,25 @@ class CategoryRepository implements CategoryRepositoryInterface{
             return redirect()->back();
         }
 
-        return redirect()->route('customer.category.index');
+        return redirect()->route('customer.expense.index');
     }
 
     public function edit(int $id): Response {
-        $data['category'] = Category::find($id);
+        $data['expense'] = Expense::find($id);
 
-        if (!$data['category']) {
+        if (!$data['expense']) {
             session()->flash('notification-status', "failed");
             session()->flash('notification-msg', "Record not found.");
             return redirect()->back();
         }
 
-        return Inertia::render('customer/category/edit', $data);
+        return Inertia::render('customer/expense/edit', $data);
     }
 
     public function update(int $id, array $data): RedirectResponse {
-        $category = Category::find($id);
+        $expense = Expense::find($id);
 
-        if (!$category) {
+        if (!$expense) {
             session()->flash('notification-status', "failed");
             session()->flash('notification-msg', "Record not found.");
             return redirect()->back();
@@ -89,15 +98,25 @@ class CategoryRepository implements CategoryRepositoryInterface{
 
         DB::beginTransaction();
         try {
-            $category->name = $data['name'];
-            $category->type = $data['type'];
-            $category->status = $data['status'];
-            $category->save();
+            $expense->category_id = $data['category'];
+            $expense->amount = $data['amount'];
+            $expense->expense_date = $data['expense_date'];
+            $expense->note = $data['note'];
+            $expense->save();
+
+            if(!empty($data['receipt'])) {
+                $image = FileUploader::upload($data['image'], "uploads/expense/{$expense->id}");
+                $expense->path = $image['path'];
+                $expense->directory = $image['directory'];
+                $expense->filename = $image['filename'];
+                $expense->source = $image['source'];
+                $expense->save();
+            }
 
             DB::commit();
 
             session()->flash('notification-status', "success");
-            session()->flash('notification-msg', "Category updated successfully.");
+            session()->flash('notification-msg', "Expense updated successfully.");
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -106,13 +125,13 @@ class CategoryRepository implements CategoryRepositoryInterface{
             return redirect()->back();
         }
 
-        return redirect()->route('customer.category.index');
+        return redirect()->route('customer.expense.index');
     }
 
     public function destroy(int $id): RedirectResponse {
-        $category = Category::find($id);
+        $expense = Expense::find($id);
 
-        if (!$category) {
+        if (!$expense) {
             session()->flash('notification-status', "failed");
             session()->flash('notification-msg', "Record not found.");
             return redirect()->back();
@@ -120,12 +139,12 @@ class CategoryRepository implements CategoryRepositoryInterface{
 
         DB::beginTransaction();
         try {
-            $category->delete();
+            $expense->delete();
 
             DB::commit();
 
             session()->flash('notification-status', "success");
-            session()->flash('notification-msg', "Category deleted successfully.");
+            session()->flash('notification-msg', "Expense deleted successfully.");
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -134,6 +153,6 @@ class CategoryRepository implements CategoryRepositoryInterface{
             return redirect()->back();
         }
 
-        return redirect()->route('customer.category.index');
+        return redirect()->route('customer.expense.index');
     }
 }

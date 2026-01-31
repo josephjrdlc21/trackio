@@ -18,11 +18,13 @@ test('authenticate user credentials', function () {
 
     $user = User::factory()->auth()->create();
 
+    $login_user = [
+        'email' => 'johndoe@gmail.com',
+        'password' => 'Aa@12345',
+    ];
+
     $this->withMiddleware()
-        ->post(route('customer.auth.authenticate'), [
-            'email' => 'johndoe@gmail.com',
-            'password' => 'Aa@12345',
-        ])
+        ->post(route('customer.auth.authenticate'), $login_user)
         ->assertRedirect(route('customer.dashboard'));
 
     $this->assertAuthenticatedAs($user, 'web');
