@@ -28,7 +28,7 @@ class StoreExpenseRequest extends RequestManager
             'amount' => "required|numeric|min:0",
             'expense_date' => "required",
             'note' => "required",
-            'receipt' => "nullable"
+            'receipt' => "nullable|mimes:pdf|min:1|max:2048"
         ];
 
         return $rules;
@@ -38,6 +38,8 @@ class StoreExpenseRequest extends RequestManager
     {
         return [
             'required' => "Field is required.",
+            'image.min' => "The file must be at least 1 KB.",
+            'image.max' => "The file may not be greater than 2 MB.",
         ];
     }
 }

@@ -4,8 +4,10 @@ import { Coins, LayoutDashboard, HandCoins, Wallet, FileChartLine,
 import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenu,
   	SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton,
   	SidebarMenuSubItem,} from "@/components/ui/sidebar"
+
 import { dashboard } from "@/routes/customer"
 import { index as category } from "@/routes/customer/category"
+import { index as expense } from "@/routes/customer/expense"
 
 const data = {
 	navMain: [
@@ -39,8 +41,8 @@ const data = {
 				},
 				{
 					title: "Expenses",
-					url: "#",
-					isActive: false,
+					url: expense.url(),
+					isActive: location.pathname === expense.url(),
 					icon: <HandCoins className="size-4" />,
 				},
 				{

@@ -9,6 +9,17 @@ export function textSpace(str: string): string {
     return str.replace(/_/g, ' ');
 };
 
+export function moneyFormat(value: number | string): string {
+    const num = typeof value === "string" ? parseFloat(value) : value;
+    
+    if (isNaN(num)) return "0.00";
+
+    return num.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+}
+
 export function titleCase(str?: string | null): string {
     if (!str) return '';
 
@@ -69,4 +80,16 @@ export function dateTime(input: string): string {
         minute: "2-digit",
         hour12: true,
     }).format(date);
+}
+
+export function toHtmlDate(value: string | Date): string {
+    const date = value instanceof Date ? value : new Date(value);
+
+    if (isNaN(date.getTime())) return "";
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
 }

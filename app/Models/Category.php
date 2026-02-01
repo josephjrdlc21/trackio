@@ -2,14 +2,24 @@
 
 namespace App\Models;
 
+use App\Models\Expense;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model{
     
     use HasFactory, SoftDeletes;
+
+    protected static function booted(): void
+    {
+        static::deleting(function ($category) {
+            Expense::where('category_id', $category->id)->delete();
+        });
+    }
 
     /**
      * The database table used by the model.
@@ -47,5 +57,10 @@ class Category extends Model{
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class, 'category_id', 'id');
     }
 }

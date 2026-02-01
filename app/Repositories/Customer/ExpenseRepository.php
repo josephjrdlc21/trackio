@@ -5,6 +5,7 @@ namespace App\Repositories\Customer;
 use App\Interfaces\Customer\ExpenseRepositoryInterface;
 
 use App\Models\Expense;
+use App\Models\Category;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
         $keyword = $filters['keyword'] ?? null;
         $per_page = $data['per_page'] ?? 10;
 
-        $data['records'] = Expense::when($keyword, function ($query) use ($keyword) {
+        $data['records'] = Expense::with(['category'])->when($keyword, function ($query) use ($keyword) {
             $query->whereRaw("LOWER(note) LIKE '%{$keyword}%'");
         })
         ->where('user_id', $user->id)
@@ -34,8 +35,11 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
     }
 
     public function create(): Response {
+        $user = Auth::guard('web')->user();
 
-        return Inertia::render('customer/expense/create');
+        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
+
+        return Inertia::render('customer/expense/create', $data);
     }
 
     public function store(array $data): RedirectResponse {
@@ -52,7 +56,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
             $expense->save();
 
             if(!empty($data['receipt'])) {
-                $image = FileUploader::upload($data['image'], "uploads/expense/{$expense->id}");
+                $image = FileUploader::upload($data['receipt'], "uploads/expense/{$expense->id}");
                 $expense->path = $image['path'];
                 $expense->directory = $image['directory'];
                 $expense->filename = $image['filename'];
@@ -76,6 +80,9 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
     }
 
     public function edit(int $id): Response {
+        $user = Auth::guard('web')->user();
+
+        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
         $data['expense'] = Expense::find($id);
 
         if (!$data['expense']) {
@@ -105,7 +112,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
             $expense->save();
 
             if(!empty($data['receipt'])) {
-                $image = FileUploader::upload($data['image'], "uploads/expense/{$expense->id}");
+                $image = FileUploader::upload($data['receipt'], "uploads/expense/{$expense->id}");
                 $expense->path = $image['path'];
                 $expense->directory = $image['directory'];
                 $expense->filename = $image['filename'];

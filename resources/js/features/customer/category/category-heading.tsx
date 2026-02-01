@@ -39,5 +39,5 @@ export default function CategoryHeading() {
                 </Button>
             </div>
         </div>
-    );
+    )
 }

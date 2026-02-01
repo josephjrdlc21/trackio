@@ -14,6 +14,19 @@ export interface Expense {
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
+
+    category: Category[];
+}
+
+export interface Category {
+    id: number;
+    user_id: number;
+    name: string;
+    type: "income" | "expense";
+    status: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string | null;
 }
 
 export interface Filter {
@@ -46,6 +59,7 @@ export interface Pagination {
 export interface ExpenseDataProps {
     records: Pagination;
     filters?: Filter;
+    categories?: Category[];
 }
 
 export interface ExpenseListProps {
@@ -55,8 +69,13 @@ export interface ExpenseListProps {
 
 export interface ExpenseEditProps {
     expense: Expense;
+    categories?: Category[];
 }
 
 export interface ExpenseFilterProps {
     filters?: Filter;
+}
+
+export interface ExpenseCreateProps {
+    categories?: Category[];
 }

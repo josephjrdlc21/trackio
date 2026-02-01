@@ -1,3 +1,4 @@
+import { create } from "@/routes/customer/expense"
 
 import { Separator } from "@/components/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, 
@@ -32,11 +33,11 @@ export default function ExpenseHeading() {
             </div>
             <div className="flex md:justify-between items-center gap-2">
                 <Button className="shadow-none" asChild>
-                    <a href="#">
+                    <a href={create.url()}>
                         <PlusIcon className="size-4"/> Create Expense
                     </a>
                 </Button>
             </div>
         </div>
-    );
+    )
 }
