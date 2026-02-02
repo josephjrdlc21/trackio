@@ -2,35 +2,21 @@
 
 namespace App\Models;
 
-use App\Models\Expense;
-use App\Models\Income;
-use App\Models\Budget;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model{
+class Budget extends Model{
     
     use HasFactory, SoftDeletes;
-
-    protected static function booted(): void
-    {
-        static::deleting(function ($category) {
-            Expense::where('category_id', $category->id)->delete();
-            Income::where('category_id', $category->id)->delete();
-            Budget::where('category_id', $category->id)->delete();
-        });
-    }
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = "categories";
+    protected $table = "budgets";
     /**
      * The attributes that are mass assignable.
      *
@@ -56,25 +42,17 @@ class Category extends Model{
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        
+    ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function expenses(): HasMany
+    public function category(): BelongsTo
     {
-        return $this->hasMany(Expense::class, 'category_id', 'id');
-    }
-
-    public function incomes(): HasMany
-    {
-        return $this->hasMany(Income::class, 'category_id', 'id');
-    }
-
-    public function budgets(): HasMany
-    {
-        return $this->hasMany(Budget::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

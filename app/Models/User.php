@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Expense;
+use App\Models\Income;
+use App\Models\Budget;
+use App\Models\Category;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +19,16 @@ class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
+
+    protected static function booted(): void
+    {
+        static::deleting(function ($user) {
+            Category::where('user_id', $user->id)->delete();
+            Expense::where('user_id', $user->id)->delete();
+            Income::where('user_id', $user->id)->delete();
+            Budget::where('user_id', $user->id)->delete();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -72,11 +87,21 @@ class User extends Authenticatable implements JWTSubject
 
     public function expenses(): HasMany
     {
-        return $this->hasMany(User::class, 'user_id', 'id');
+        return $this->hasMany(Expense::class, 'user_id', 'id');
     }
 
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class, 'user_id', 'id');
+    }
+
+    public function incomes(): HasMany
+    {
+        return $this->hasMany(Income::class, 'user_id', 'id');
+    }
+
+    public function budgets(): HasMany
+    {
+        return $this->hasMany(Budget::class, 'user_id', 'id');
     }
 }
