@@ -8,6 +8,7 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenu,
 import { dashboard } from "@/routes/customer"
 import { index as category } from "@/routes/customer/category"
 import { index as expense } from "@/routes/customer/expense"
+import { index as income } from "@/routes/customer/income"
 
 const data = {
 	navMain: [
@@ -47,8 +48,8 @@ const data = {
 				},
 				{
 					title: "Income",
-					url: "#",
-					isActive: false,
+					url: income.url(),
+					isActive: location.pathname === income.url(),
 					icon: <WalletCards className="size-4" />,
 				},
 				{

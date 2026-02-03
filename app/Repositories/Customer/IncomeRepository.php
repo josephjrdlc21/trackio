@@ -56,7 +56,7 @@ class IncomeRepository implements IncomeRepositoryInterface{
             $income->save();
 
             if(!empty($data['receipt'])) {
-                $image = FileUploader::upload($data['receipt'], "uploads/income/{$expense->id}");
+                $image = FileUploader::upload($data['receipt'], "uploads/income/{$income->id}");
                 $income->path = $image['path'];
                 $income->directory = $image['directory'];
                 $income->filename = $image['filename'];
@@ -112,7 +112,7 @@ class IncomeRepository implements IncomeRepositoryInterface{
             $income->save();
 
             if(!empty($data['receipt'])) {
-                $image = FileUploader::upload($data['receipt'], "uploads/income/{$expense->id}");
+                $image = FileUploader::upload($data['receipt'], "uploads/income/{$income->id}");
                 $income->path = $image['path'];
                 $income->directory = $image['directory'];
                 $income->filename = $image['filename'];
