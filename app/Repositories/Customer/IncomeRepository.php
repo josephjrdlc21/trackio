@@ -79,7 +79,7 @@ class IncomeRepository implements IncomeRepositoryInterface{
         return redirect()->route('customer.income.index');
     }
 
-    public function edit(int $id): Response {
+    public function edit(int $id): Response|RedirectResponse {
         $user = Auth::guard('web')->user();
 
         $data['categories'] = Category::where('user_id', $user->id)->where('type', 'income')->where('status', 'active')->get();

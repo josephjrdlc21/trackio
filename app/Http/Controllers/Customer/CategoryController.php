@@ -37,7 +37,7 @@ class CategoryController extends Controller{
         return $this->category_repo->store($request->validated());
     }
 
-    public function edit(PageRequest $request, ?int $id = null): Response {
+    public function edit(PageRequest $request, ?int $id = null): Response|RedirectResponse {
 
         return $this->category_repo->edit($id);
     }

@@ -37,7 +37,7 @@ class IncomeController extends Controller{
         return $this->income_repo->store($request->validated());
     }
 
-    public function edit(PageRequest $request, ?int $id = null): Response {
+    public function edit(PageRequest $request, ?int $id = null): Response|RedirectResponse {
 
         return $this->income_repo->edit($id);
     }

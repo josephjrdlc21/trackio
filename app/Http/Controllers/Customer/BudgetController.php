@@ -37,7 +37,7 @@ class BudgetController extends Controller{
         return $this->budget_repo->store($request->validated());
     }
 
-    public function edit(PageRequest $request, ?int $id = null): Response {
+    public function edit(PageRequest $request, ?int $id = null): Response|RedirectResponse {
 
         return $this->budget_repo->edit($id);
     }

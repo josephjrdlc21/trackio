@@ -70,7 +70,7 @@ class BudgetRepository implements BudgetRepositoryInterface{
         return redirect()->route('customer.budget.index');
     }
 
-    public function edit(int $id): Response {
+    public function edit(int $id): Response|RedirectResponse {
         $user = Auth::guard('web')->user();
 
         $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();

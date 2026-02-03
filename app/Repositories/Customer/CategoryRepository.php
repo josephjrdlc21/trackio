@@ -66,7 +66,7 @@ class CategoryRepository implements CategoryRepositoryInterface{
         return redirect()->route('customer.category.index');
     }
 
-    public function edit(int $id): Response {
+    public function edit(int $id): Response|RedirectResponse {
         $data['category'] = Category::find($id);
 
         if (!$data['category']) {
