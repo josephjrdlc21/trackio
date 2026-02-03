@@ -93,3 +93,17 @@ export function toHtmlDate(value: string | Date): string {
 
     return `${year}-${month}-${day}`;
 }
+
+export function lastDayOfMonth(input: string): string {
+    if (!input) return "";
+
+    const date = new Date(input);
+
+    const lastDate = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0
+    );
+
+    return dateTime(lastDate.toISOString());
+}

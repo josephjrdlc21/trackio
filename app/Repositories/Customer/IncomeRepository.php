@@ -37,7 +37,7 @@ class IncomeRepository implements IncomeRepositoryInterface{
     public function create(): Response {
         $user = Auth::guard('web')->user();
 
-        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
+        $data['categories'] = Category::where('user_id', $user->id)->where('type', 'income')->where('status', 'active')->get();
 
         return Inertia::render('customer/income/create', $data);
     }
@@ -82,7 +82,7 @@ class IncomeRepository implements IncomeRepositoryInterface{
     public function edit(int $id): Response {
         $user = Auth::guard('web')->user();
 
-        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
+        $data['categories'] = Category::where('user_id', $user->id)->where('type', 'income')->where('status', 'active')->get();
         $data['income'] = Income::find($id);
 
         if (!$data['income']) {

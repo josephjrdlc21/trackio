@@ -37,7 +37,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
     public function create(): Response {
         $user = Auth::guard('web')->user();
 
-        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
+        $data['categories'] = Category::where('user_id', $user->id)->where('type', 'expense')->where('status', 'active')->get();
 
         return Inertia::render('customer/expense/create', $data);
     }
@@ -82,7 +82,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface{
     public function edit(int $id): Response {
         $user = Auth::guard('web')->user();
 
-        $data['categories'] = Category::where('user_id', $user->id)->where('status', 'active')->get();
+        $data['categories'] = Category::where('user_id', $user->id)->where('type', 'expense')->where('status', 'active')->get();
         $data['expense'] = Expense::find($id);
 
         if (!$data['expense']) {

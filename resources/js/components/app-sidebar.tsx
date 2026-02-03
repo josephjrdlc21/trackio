@@ -9,6 +9,7 @@ import { dashboard } from "@/routes/customer"
 import { index as category } from "@/routes/customer/category"
 import { index as expense } from "@/routes/customer/expense"
 import { index as income } from "@/routes/customer/income"
+import { index as budget } from "@/routes/customer/budget"
 
 const data = {
 	navMain: [
@@ -30,8 +31,8 @@ const data = {
 			items: [
 				{
 					title: "Budgets",
-					url: "#",
-					isActive: false,
+					url: budget.url(),
+					isActive: location.pathname === budget.url(),
 					icon: <Wallet className="size-4" />,
 				},
 				{
