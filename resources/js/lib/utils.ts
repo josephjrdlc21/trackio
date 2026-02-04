@@ -9,9 +9,13 @@ export function textSpace(str: string): string {
     return str.replace(/_/g, ' ');
 };
 
-export function moneyFormat(value: number | string): string {
-    const num = typeof value === "string" ? parseFloat(value) : value;
-    
+export function moneyFormat(value: number | string | null | undefined): string {
+    if (value === null || value === undefined || value === "") {
+        return "0.00";
+    }
+
+    const num = Number(value);
+
     if (isNaN(num)) return "0.00";
 
     return num.toLocaleString("en-US", {
@@ -79,6 +83,19 @@ export function dateTime(input: string): string {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
+    }).format(date);
+}
+
+export function dateOnly(input: string | null | undefined): string {
+    if (!input) return "";
+
+    const date = new Date(input);
+
+    return new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Singapore",
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
     }).format(date);
 }
 

@@ -10,6 +10,7 @@ import { index as category } from "@/routes/customer/category"
 import { index as expense } from "@/routes/customer/expense"
 import { index as income } from "@/routes/customer/income"
 import { index as budget } from "@/routes/customer/budget"
+import { index as report } from "@/routes/customer/report"
 
 const data = {
 	navMain: [
@@ -54,9 +55,9 @@ const data = {
 					icon: <WalletCards className="size-4" />,
 				},
 				{
-					title: "Analytics",
-					url: "#",
-					isActive: false,
+					title: "Reports",
+					url: report.url(),
+					isActive: location.pathname === report.url(),
 					icon: <FileChartLine className="size-4" />,
 				},
 			],

@@ -6,6 +6,7 @@ use App\Http\Controllers\Customer\CategoryController;
 use App\Http\Controllers\Customer\ExpenseController;
 use App\Http\Controllers\Customer\IncomeController;
 use App\Http\Controllers\Customer\BudgetController;
+use App\Http\Controllers\Customer\ReportController;
 
 Route::name('customer.')->group(function () {
     Route::name('auth.')->group(function () {
@@ -51,6 +52,10 @@ Route::name('customer.')->group(function () {
             Route::get('/edit/{id}', [BudgetController::class, 'edit'])->name('edit');
             Route::post('/update/{id}', [BudgetController::class, 'update'])->name('update');
             Route::any('/delete/{id}', [BudgetController::class, 'destroy'])->name('delete');
+        });
+
+        Route::prefix('report')->name('report.')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('index');
         });
     });
 });
