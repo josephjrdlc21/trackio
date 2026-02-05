@@ -1,9 +1,9 @@
+import { export_excel, export_pdf } from "@/routes/customer/report"
 
 import { Separator } from "@/components/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, 
     BreadcrumbPage, BreadcrumbSeparator, } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { PlusIcon } from "lucide-react"
 
 export default function ReportHeading() {
     return (
@@ -32,12 +32,12 @@ export default function ReportHeading() {
             </div>
             <div className="flex md:justify-between items-center gap-2">
                 <Button variant="destructive" className="shadow-none" asChild>
-                    <a href="#">
+                    <a href={export_pdf.url()}>
                         Export PDF
                     </a>
                 </Button>
                 <Button variant="default" className="shadow-none" asChild>
-                    <a href="#">
+                    <a href={export_excel.url()}>
                         Export Excel
                     </a>
                 </Button>
