@@ -56,6 +56,8 @@ Route::name('customer.')->group(function () {
 
         Route::prefix('report')->name('report.')->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('index');
+            Route::get('/export-excel', [ReportController::class, 'export_excel'])->name('export_excel');
+            Route::get('/export-pdf', [ReportController::class, 'export_pdf'])->name('export_pdf');
         });
     });
 });
