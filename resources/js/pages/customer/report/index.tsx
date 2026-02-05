@@ -9,7 +9,7 @@ export default function Index({ records, filters }: ReportDataProps) {
     
     return (
         <MainLayout>
-            <ReportHeading />
+            <ReportHeading filters={filters} />
 
             <ReportList list={records} filters={filters} />
         </MainLayout>
