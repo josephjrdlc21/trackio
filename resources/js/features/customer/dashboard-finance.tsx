@@ -3,24 +3,30 @@ import { CardData } from '@/types/customer/dashboard';
 import { Card, CardContent } from '@/components/ui/card';
 import { TrendingDown, Wallet, TrendingUp } from 'lucide-react';
 
-export default function DashboardFinance() {
+export default function DashboardFinance({ 
+    total_budget, 
+    total_incomes,
+    total_expenses }: { 
+    total_budget: number
+    total_incomes: number
+    total_expenses: number}) {
 
     const cardsData: CardData[] = [
         {
             label: 'Expenses',
-            amount: 5658,
+            amount: total_expenses,
             previousAmount: 4563,
             icon: <TrendingDown className="w-4 h-4" />,
         },
         {
             label: 'Budget',
-            amount: 89657,
-            previousAmount: 76852,
+            amount: total_budget,
+            previousAmount: 6852,
             icon: <Wallet className="w-4 h-4" />,
         },
         {
             label: 'Income',
-            amount: 2354,
+            amount: total_incomes,
             previousAmount: 1578,
             icon: <TrendingUp className="w-4 h-4" />,
         },

@@ -7,5 +7,5 @@ use Inertia\Response;
 
 interface MainRepositoryInterface {
 
-    public function dashboard(): Response;
+    public function dashboard(array $data): Response;
 }

@@ -19,7 +19,8 @@ class MainController extends Controller{
     }
 
     public function dashboard(PageRequest $request): Response {
+        $this->data['filters'] = $request->all();
 
-        return $this->main_repo->dashboard();
+        return $this->main_repo->dashboard($this->data);
     }
 }
