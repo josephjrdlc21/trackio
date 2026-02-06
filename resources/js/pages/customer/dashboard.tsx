@@ -11,7 +11,8 @@ export default function dashboard({
     total_incomes, 
     total_expenses,
     recent_expenses,
-    recent_incomes
+    recent_incomes,
+    categories
 }: DashboardDataProps) {
 
     return (
@@ -26,7 +27,7 @@ export default function dashboard({
 
             <div className="flex flex-col lg:flex-row gap-4">
                 <div className="w-full">
-                    <DashboardCategoryChart />
+                    <DashboardCategoryChart categories={categories} />
                 </div>
                 <DashboardRecentHistory 
                     recent_expenses={recent_expenses} 

@@ -3,6 +3,8 @@ export interface DashboardDataProps {
     total_expenses: number;
     total_incomes: number;
 
+    categories: CategoryAmount[];
+
     recent_expenses: {
         category: {
             name: string;
@@ -20,6 +22,10 @@ export interface DashboardDataProps {
         amount: number;
         created_at: string;
     }
+}
+
+export interface DashboardChartProps {
+    categories: CategoryAmount[];
 }
 
 export interface DashboardHistoryProps {
@@ -52,4 +58,9 @@ export interface CardData {
 export interface ChartData {
     category: string;
     amount: number;
+}
+
+export interface CategoryAmount {
+  category: string
+  amount: string
 }

@@ -3,44 +3,32 @@ import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig,} from "@/components/ui/chart"
+import { DashboardChartProps } from "@/types/customer/dashboard"
 
 export const description = "A donut chart with text"
 
-const chartData = [
-	{ category: "Food", amount: 5200, fill: "var(--color-food)" },
-	{ category: "Salary", amount: 30000, fill: "var(--color-salary)" },
-	{ category: "Transportation", amount: 2500, fill: "var(--color-transport)" },
-	{ category: "Rent", amount: 8000, fill: "var(--color-rent)" },
-	{ category: "Others", amount: 1200, fill: "var(--color-others)" },
-]
+export default function DashboardCategoryChart({ categories }: DashboardChartProps) {
+	const chartData = categories.map((item, index) => ({
+		category: item.category,
+		amount: parseFloat(item.amount),
+		fill: `var(--color-${item.category.toLowerCase()})`,
+	}));
 
-const chartConfig = {
-	amount: {
-		label: "Amount",
-	},
-	food: {
-		label: "Food",
-		color: "var(--chart-1)",
-	},
-	salary: {
-		label: "Salary",
-		color: "var(--chart-2)",
-	},
-	transport: {
-		label: "Transportation",
-		color: "var(--chart-3)",
-	},
-	rent: {
-		label: "Rent",
-		color: "var(--chart-4)",
-	},
-	others: {
-		label: "Others",
-		color: "var(--chart-5)",
-	},
-} satisfies ChartConfig
+	const chartConfig = categories.reduce((config, item, index) => {
+		const key = item.category.toLowerCase();
+		return {
+			...config,
+			[key]: {
+				label: item.category,
+				color: `var(--chart-${index + 1})`,
+		},
+		};
+	}, {
+			amount: {
+			label: "Amount",
+		},
+	} as ChartConfig);
 
-export default function DashboardCategoryChart() {
 	const totalAmount = React.useMemo(() => {
 		return chartData.reduce((acc, curr) => acc + curr.amount, 0)
 	}, [])
