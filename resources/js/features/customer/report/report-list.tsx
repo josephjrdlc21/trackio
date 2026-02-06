@@ -11,7 +11,7 @@ export default function ReportList({ list, filters }: ReportListProps) {
     const reports = Array.isArray(list.data) ? list.data : list.data ? [list.data] : []
 
     return(
-        <Card className="p-0 gap-0 mt-4 shadow-none">
+        <Card className="p-0 gap-0 mt-4">
             <div className="flex flex-col lg:flex-row justify-between lg:items-center p-4 gap-2">
                 <h4 className="font-semibold text-base">Record Data</h4>
                 <ReportFilter filters={filters} />

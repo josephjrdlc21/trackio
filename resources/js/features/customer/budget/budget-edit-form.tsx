@@ -29,7 +29,7 @@ export default function BudgetEditForm({ budget, categories }: BudgetEditProps) 
     }
 
     return (
-        <Card className="w-full mt-5 shadow-none">
+        <Card className="w-full mt-5">
             <CardHeader>
                 <CardTitle>Edit Budget</CardTitle>
                 <CardDescription>

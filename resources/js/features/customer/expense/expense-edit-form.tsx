@@ -32,7 +32,7 @@ export default function ExpenseEditForm({ expense, categories }: ExpenseEditProp
     }
 
     return (
-        <Card className="w-full mt-5 shadow-none">
+        <Card className="w-full mt-5">
             <CardHeader>
                 <CardTitle>Edit Expense</CardTitle>
                 <CardDescription>

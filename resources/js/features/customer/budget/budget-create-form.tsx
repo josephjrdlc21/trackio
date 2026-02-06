@@ -29,7 +29,7 @@ export default function BudgetCreateForm({ categories }: BudgetCreateProps) {
     }
 
     return (
-        <Card className="w-full mt-5 shadow-none">
+        <Card className="w-full mt-5">
             <CardHeader>
                 <CardTitle>Create Budget</CardTitle>
                 <CardDescription>

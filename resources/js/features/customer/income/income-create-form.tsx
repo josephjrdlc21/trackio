@@ -31,7 +31,7 @@ export default function IncomeCreateForm({ categories }: IncomeCreateProps) {
     }
 
     return (
-        <Card className="w-full mt-5 shadow-none">
+        <Card className="w-full mt-5">
             <CardHeader>
                 <CardTitle>Create Income</CardTitle>
                 <CardDescription>

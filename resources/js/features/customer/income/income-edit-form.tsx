@@ -32,7 +32,7 @@ export default function IncomeEditForm({ income, categories }: IncomeEditProps) 
     }
 
     return (
-        <Card className="w-full mt-5 shadow-none">
+        <Card className="w-full mt-5">
             <CardHeader>
                 <CardTitle>Edit Income</CardTitle>
                 <CardDescription>
